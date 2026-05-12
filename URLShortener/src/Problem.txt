@@ -1,0 +1,5 @@
+1. Functional RequirementsYour service must satisfy these core features:
+
+URL Shortening: Users provide a long URL and receive a unique short URL.
+
+Redirection: When a user accesses the short URL, the system must redirect them to the original long URL with minimal delay.
