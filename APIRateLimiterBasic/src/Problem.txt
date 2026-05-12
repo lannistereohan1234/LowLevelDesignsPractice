@@ -1,0 +1,30 @@
+Request Filtering:
+
+For every incoming request (identified by a UserID or IP Address),
+
+the system must return:
+True (Allow) if the user is within their limit.
+False (Block/HTTP 429) if they have exceeded it.
+
+
+Configurable Thresholds: You should be able to set a limit, such as "Allow 5 requests per minute per user"
+
+Reset Logic: Once the time window passes (e.g., the next minute starts), the user’s count should reset.
+
+Thread Safety: Since multiple requests might hit your service at the same time,
+your code must use thread-safe tools (like AtomicInteger or ConcurrentHashMap) to avoid "race conditions."
+
+
+In-Memory Storage: For a beginner LLD, don't worry about databases yet. Use internal Java data structures to track user counts.
+
+Efficiency: The check must be extremely fast so it doesn't slow down the actual API.
+
+
+
+Suggested Strategy:
+"Fixed Window Counter"
+This is the easiest algorithm for beginners:
+
+Divide time into 1-minute blocks.
+Store a map where the key is the UserID and the value is the RequestCount.
+If count < limit, increment and allow.If the minute changes, clear the map
